@@ -14,7 +14,6 @@ import java.util.regex.*;
  */
 public class ValidNumber
 {
-
 	public boolean isNumber(String s)
 	{
 		if (s.length() == 0)
@@ -27,7 +26,6 @@ public class ValidNumber
 		Matcher m = r.matcher(s);
 		return m.matches();
 		
-		
 //		return false;
 	}
 	public static void main(String[] args)
@@ -35,5 +33,4 @@ public class ValidNumber
 		ValidNumber vn = new ValidNumber();
 		System.out.println(vn.isNumber("1a"));
 	}
-
 }

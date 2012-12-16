@@ -1,10 +1,13 @@
 package LeetCode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 
 /**
  * Given an array of strings, return all groups of strings that are anagrams. 
@@ -16,6 +19,54 @@ import java.util.LinkedList;
 
 public class Anagrams
 {
+	public ArrayList<String> anagrams(String[] strs) 
+    {
+        int n = strs.length;
+        ArrayList<String> result = new ArrayList<String>();
+        HashMap<String, ArrayList<String>> map 
+            = new HashMap<String, ArrayList<String>>();
+        
+        if (n == 0)
+            return result;
+        
+        for (int i = 0;i<n;i++)
+        {
+            char[] str = strs[i].toCharArray();
+            Arrays.sort(str);
+            String sortedString = new String(str);
+            //sortedStrArray[i] = sortedString;
+            System.out.println(sortedString);
+            
+            if (!map.containsKey(sortedString))
+            {
+                ArrayList<String> list = new ArrayList<String>();
+                list.add(strs[i]);
+                map.put(sortedString, list);
+            }
+            else
+            {
+                ArrayList<String> list = map.get(sortedString);
+                list.add(strs[i]);
+                map.put(sortedString, list);
+            }
+        }
+        
+        Iterator<Entry<String, ArrayList<String>>> it = map.entrySet().iterator();
+        while(it.hasNext())
+        {
+            Entry<String, ArrayList<String>> pairs = it.next();
+            if (pairs.getValue().size()>1)
+            	result.addAll(pairs.getValue());
+            System.out.println(result);
+        }
+        Collections.sort(result);
+        return result;
+    }
+	
+	/***
+	 * 
+	 * @param strArray
+	 */
 	private static void sortString(String[] strArray)
 	{
 		int n = strArray.length;
