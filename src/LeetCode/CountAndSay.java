@@ -19,35 +19,30 @@ public class CountAndSay
 {
 	public static String countAndSay(int n)
 	{
-		String countAndSayStr = "";
-		String inputStr = Integer.toString(n);
-		int[] arr = new int[inputStr.length()];
-		int count = 1;
-		int element = 0;
-		
-		for (int i = 0;i<inputStr.length();i++)
+		String number = "1";
+		for (int i = 1;i<=n;i++)
 		{
-			arr[i] = Character.getNumericValue(inputStr.charAt(i));
-			//Integer.parseInt(inputStr.substring(i, i+1));
-		}
-		for (int i = 0;i<arr.length-1;i++)
-		{
-			element = arr[i];
-			if (element == arr[i+1])
-				count++;
-			else
+			String newNumber = new String();
+			
+			int j = 0;
+			while(j<number.length())
 			{
-				countAndSayStr += count+""+element +" ";
-				count = 1;
-				element = arr[i+1];
+				char current = number.charAt(j);
+				int count = 0;
+				while(j< number.length() && current == number.charAt(j))
+				{
+					count++;
+					j++;
+				}
+				newNumber += "" +count+current;
 			}
+			number = newNumber;
 		}
-		countAndSayStr += count+""+element +".";
-		return countAndSayStr;
+		return number;
 	}
 	public static void main(String[] args)
 	{
-		System.out.println(countAndSay(12333354));
+		System.out.println(countAndSay(5));
 	}
 
 }

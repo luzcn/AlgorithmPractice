@@ -1,8 +1,10 @@
 package AlgorithmDataStructure;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Set;
 
 
 /**
@@ -16,7 +18,7 @@ public class HashMapIterate
 	public void mapIteration(HashMap<Integer, Integer> map)
 	{
 		Iterator<Entry<Integer, Integer>> it = map.entrySet().iterator();
-		
+				
 		while(it.hasNext())
 		{
 			Entry<Integer, Integer> pairs = it.next();

@@ -18,8 +18,8 @@ public class DecodeWays
 	{
 		if (s.length() == 0)
 			return 0;
-		return decodingNonRec(s);
-		// return decodingRec(s, new ArrayList<Integer>()).size();
+//		return decodingNonRec(s);
+		 return decodingRec(s, new ArrayList<Integer>()).size();
 	}
 
 	private static int decodingNonRec(String s)
@@ -83,7 +83,7 @@ public class DecodeWays
 
 	public static void main(String[] args)
 	{
-		System.out.println(numDecodings("21"));
+		System.out.println(numDecodings("10"));
 	}
 
 }

@@ -19,7 +19,8 @@ import java.util.Collections;
 public class BinaryTreeMaximunPathSum
 {
 	int maxSum = -999;
-
+	int singleLine = 0;
+	
 	public int maxPathSum(TreeNode root)
 	{
 		if (root == null)
@@ -69,16 +70,18 @@ public class BinaryTreeMaximunPathSum
 
 	public static void main(String[] args)
 	{
-		TreeNode n1 = new TreeNode(-2);
-		TreeNode n2 = new TreeNode(-1);
-		TreeNode n3 = new TreeNode(-3);
+		TreeNode n1 = new TreeNode(1);
+		TreeNode n2 = new TreeNode(2);
+		TreeNode n3 = new TreeNode(3);
 		TreeNode n4 = new TreeNode(4);
-		TreeNode n5 = new TreeNode(5);
-
-		//n1.left = n2;
+		TreeNode n5 = new TreeNode(6);
+		TreeNode n6 = new TreeNode(1);
+		
+		
+		n1.left = n2;
 		n1.right = n3;
-		//n3.left = n5;
-		//n3.right = n4;
+		n3.left = n5;
+		n3.right = n4;
 
 		BinaryTreeMaximunPathSum btm = new BinaryTreeMaximunPathSum();
 

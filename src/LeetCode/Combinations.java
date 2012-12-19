@@ -45,7 +45,7 @@ public class Combinations
 
 	public static void main(String[] args)
 	{
-		int n = 6;
+		int n = 7;
 		int k = 2;
 		ArrayList<ArrayList<Integer>> solution = combine(n,k);
 		for (ArrayList<Integer> s:solution)
