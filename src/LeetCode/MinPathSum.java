@@ -31,6 +31,7 @@ public class MinPathSum
 		
 		int[][] pathSum = new int[rows][columns];
 		pathSum[0][0]=grid[0][0];
+		
 		for (int i = 1;i<rows;i++)
 			pathSum[i][0]=grid[i][0]+pathSum[i-1][0];
 		for (int j = 1;j<columns;j++)
@@ -43,8 +44,6 @@ public class MinPathSum
 				pathSum[i][j] = grid[i][j]+Math.min(pathSum[i-1][j], pathSum[i][j-1]);
 			}
 		}
-		
-		
 		return pathSum[rows-1][columns-1];
 	}
 	

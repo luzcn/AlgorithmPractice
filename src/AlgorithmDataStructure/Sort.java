@@ -7,17 +7,45 @@ public class Sort
 
 		int[] A = {123,45,56,4,76,82,44,7,1,23};
 		Sort s = new Sort();
-		/*s.quickSort(A);
+		s.quickSort(A);
 		for (int i = 0;i<A.length;i++)
-			System.out.println(A[i]);*/
+			System.out.print(A[i]+" ");
 		
-		s.countSort(A,124);
+//		s.countSort(A,124);
 	}
 	
 	public void quickSort(int[] a)
 	{
-		QuickSort qs = new QuickSort();
-		qs.quickSort(a,0,a.length-1);
+		if (a.length == 0)
+			return;
+		quickSortHelper(a,0,a.length-1);
+	}
+	private void quickSortHelper(int[] num, int l, int r)
+	{
+		if (l > r)
+			return;
+
+		int pivot = num[r];
+		int m = l - 1;
+
+		for (int i = l; i < r; i++)
+		{
+			if (num[i] < pivot)
+			{
+				m++;
+				// swap num[m] and num[i]
+				int temp = num[m];
+				num[m] = num[i];
+				num[i] = temp;
+			}
+		}
+		m++;
+		int temp = num[m];
+		num[m] = num[r];
+		num[r] = temp;
+
+		quickSortHelper(num, l, m - 1);
+		quickSortHelper(num, m + 1, r);
 	}
 	
 	public void countSort(int[] a, int k)
@@ -109,42 +137,42 @@ class MergeSort
 	}
 }
 
-class QuickSort
-{
-	/**
-	 * 
-	 * @param A The array to be sorted
-	 * @param p	The start position 
-	 * @param r	The end position
-	 */
-	public void quickSort(int[] A, int p, int r)
-	{
-		if (p<r)
-		{
-			int q = partition(A, p, r);
-			quickSort(A, p, q-1);
-			quickSort(A, q+1, r);
-		}
-	}
-	public int partition(int[] A, int p, int r)
-	{
-		int prefix = p - 1;
-		int pivot = A[r];
-		for (int j = p;j<r;j++)
-		{
-			if (A[j] <= pivot)
-			{
-				prefix++;
-				/** exchange A[prefix] and A[j]**/
-				int temp = A[prefix];
-				A[prefix] = A[j];
-				A[j] = temp;
-			}
-		}
-		int temp = A[prefix + 1];
-		A[prefix + 1] = A[r];
-		A[r] = temp;
-		
-		return prefix + 1;
-	}
-}
+//class QuickSort
+//{
+//	/**
+//	 * 
+//	 * @param A The array to be sorted
+//	 * @param p	The start position 
+//	 * @param r	The end position
+//	 */
+//	public void quickSort(int[] A, int p, int r)
+//	{
+//		if (p<r)
+//		{
+//			int q = partition(A, p, r);
+//			quickSort(A, p, q-1);
+//			quickSort(A, q+1, r);
+//		}
+//	}
+//	public int partition(int[] A, int p, int r)
+//	{
+//		int prefix = p - 1;
+//		int pivot = A[r];
+//		for (int j = p;j<r;j++)
+//		{
+//			if (A[j] <= pivot)
+//			{
+//				prefix++;
+//				/** exchange A[prefix] and A[j]**/
+//				int temp = A[prefix];
+//				A[prefix] = A[j];
+//				A[j] = temp;
+//			}
+//		}
+//		int temp = A[prefix + 1];
+//		A[prefix + 1] = A[r];
+//		A[r] = temp;
+//		
+//		return prefix + 1;
+//	}
+//}

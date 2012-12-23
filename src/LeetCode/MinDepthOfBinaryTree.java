@@ -10,7 +10,7 @@ package LeetCode;
  * @date Nov 12, 2012
  * 
  */
-public class MinDepthBinaryTree
+public class MinDepthOfBinaryTree
 {
 
 	private int minDepth;
@@ -22,7 +22,7 @@ public class MinDepthBinaryTree
 		minDepth = Integer.MAX_VALUE;
 		if (root == null)
 			return 0;
-		minDepthRec(root, 0);
+		minDepthRec(root, 1);
 		return minDepth;
 	}
 
@@ -32,13 +32,10 @@ public class MinDepthBinaryTree
 			return;
 		if (root.left == null && root.right == null)
 		{
-			currentDepth++;
 			if (currentDepth < minDepth)
 				minDepth = currentDepth;
-
 			return;
 		}
-
 		minDepthRec(root.left, currentDepth + 1);
 		minDepthRec(root.right, currentDepth + 1);
 	}

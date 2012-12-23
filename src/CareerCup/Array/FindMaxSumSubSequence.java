@@ -17,7 +17,7 @@ public class FindMaxSumSubSequence
 {
 	public static void main(String[] args)
 	{
-		int[] A = { 31, -41, 59, 26, -53, 58, 97, -93, -23, 84 };
+		int[] A = { -9, -6, -7, -4, 3, 8, 0, -1, 0, 6, -8, 3, 0, 2 };
 		FindMaxSumSubSequence fm = new FindMaxSumSubSequence();
 		fm.findmaxseq(A);
 		// System.out.println(fm.findSum(A, 0,A.length-1));
@@ -36,13 +36,15 @@ public class FindMaxSumSubSequence
 		if (left > right)
 			return 0;
 		if (left == right)
-			return (Math.max(0, a[left]));
-
-		int sum = 0;
-		int lmax = 0;
-		int rmax = 0;
+			return a[left]; //(Math.max(0, a[left]));
 
 		int middle = (left + right) / 2;
+		
+		int sum = 0;
+		int lmax = a[middle];
+		int rmax = a[middle + 1];
+
+		
 		for (int i = middle; i >= left; i--)
 		{
 			sum += a[i];
@@ -67,7 +69,7 @@ public class FindMaxSumSubSequence
 	public void findmaxseq(int[] a)
 	{
 		int sum = 0;
-		int maxsum = 0;
+		int maxsum = a[0];
 		int start = 0; // the max subsequence start position
 		int end = 0; // the max subsequence end position
 
@@ -81,7 +83,9 @@ public class FindMaxSumSubSequence
 			{
 				maxsum = sum;
 				end = i;
-			} else if (sum < 0)
+			}
+
+			if (sum < 0)
 			{
 				sum = 0;
 				start = i + 1;

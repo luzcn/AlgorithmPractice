@@ -19,9 +19,18 @@ public class LengthOfLastWord
 {
 	public int lengthOfLastWord(String s)
 	{
-		int length = 0;
-		if (s.length() == 0)
-			return 0;
+		s = s.trim();
+        
+        if (s.length() == 0)
+            return 0;
+            
+        String[] strarr = s.split(" ");
+        
+        return strarr[strarr.length - 1].length();
+        
+//		int length = 0;
+//		if (s.length() == 0)
+//			return 0;
 
 //		String t = s.trim();
 //		for (int i = t.length()-1;i>=0;i--)
@@ -32,29 +41,30 @@ public class LengthOfLastWord
 //				break;
 //		}
 		
-		int lastpos = s.length() - 1;
-		while (lastpos >= 0)
-		{
-			if (s.charAt(lastpos) != ' ')
-				break;
-			lastpos--;
-		}
-		for (int i = lastpos; i >= 0; i--)
-		{
-			char c = s.charAt(i);
-			if (c != ' ')
-				length++;
-			else
-				break;
-		}
-
-		return length;
+//		int lastpos = s.length() - 1;
+//		while (lastpos >= 0)
+//		{
+//			if (s.charAt(lastpos) != ' ')
+//				break;
+//			lastpos--;
+//		}
+//		for (int i = lastpos; i >= 0; i--)
+//		{
+//			char c = s.charAt(i);
+//			if (c != ' ')
+//				length++;
+//			else
+//				break;
+//		}
+//
+//		return length;
 	}
 
 	public static void main(String[] args)
 	{
-		// TODO Auto-generated method stub
-
+		String s = "      ";
+		System.out.println(s + "a");
+		System.out.println(s.trim() + "a");
 	}
 
 }

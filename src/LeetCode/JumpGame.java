@@ -23,30 +23,31 @@ import java.util.ArrayList;
  */
 public class JumpGame
 {
-
-	public static boolean canJump(int[] A)
-	{
-		int n = A.length;
-		boolean[] rachable = new boolean[n];
-		rachable[0] = true;
-		int current = 0;
-
-		while (current < n)
-		{
-			if (rachable[current])
-			{
-				for (int i = 0; i < A[current]; i++)
-				{
-					if (current + i >= n - 1)
-						return true;
-					rachable[current + i] = true;
-				}
-			}
-			current++;
-		}
+	public boolean canJump(int[] A) 
+    {
+        int n = A.length;
+        if (n == 1)
+            return true;
+        
+        boolean[] reachable = new boolean[n];
+        reachable[0] = true;
+        
+        for (int i = 0;i<n;i++)
+        {
+            if (reachable[i])
+            {
+                int a = A[i];
+                if (i + a >= n -1)
+                    return true;
+                    
+                for (int j = 1;j<= a; j++)
+                    reachable[i + j] = true;
+            }
+            else
+                return false;
+        }
 		return false;
-	}
-
+    }
 	/***
 	 * Greedy solution
 	 * for each entry, we can find a jump range. From this range, we get the maximum
