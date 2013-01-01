@@ -24,25 +24,54 @@ import java.util.Collections;
 public class NextPermutation
 {
 
-	public void nextPermutation(int[] num)
+	public void nextPermutation(int[] nums)
 	{
-		
+		int n = nums.length;
+		if (n < 2)
+			return;
+
+		for (int i = n - 1; i > 0; i--)
+		{
+			if (nums[i] > nums[i - 1])
+			{
+				swapRange(nums, i, n - 1);
+				
+				for (int j = i; j < n; j++)
+				{
+					if (nums[j] > nums[i-1])
+					{
+						swap(nums, i - 1, j);
+						break;
+					}
+				}
+			}
+		}
+		swapRange(nums, 0, n-1);
 	}
 
-	private int[] reverse(int[] num)
+	private void swapRange(int[] nums, int start, int end)
 	{
-		int[] reverse = new int[num.length];
-		for (int i = 0;i<num.length;i++)
-			reverse[i] = num[num.length-1-i];
-		return reverse;
+		for (int i = start, j = end; i < j; i++, j--)
+			swap(nums, i, j);
 	}
+
+	private void swap(int nums[], int i, int j)
+	{
+		// nums[i] = nums[i] ^ nums[j];
+		// nums[j] = nums[i] ^ nums[j];
+		// nums[i] = nums[i] ^ nums[j];
+
+		nums[i] = nums[j] - nums[i];
+		nums[j] = nums[j] - nums[i];
+		nums[i] = nums[j] + nums[i];
+	}
+
 	public static void main(String[] args)
 	{
-		int[] num = {1,2,3};
+		int[] num = { 1, 2, 3 };
 		NextPermutation np = new NextPermutation();
-		
 		np.nextPermutation(num);
-	
+		System.out.println(num[0]);
 	}
 
 }

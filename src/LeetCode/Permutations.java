@@ -48,47 +48,10 @@ public class Permutations
 		return solution;
 	}
 
-	/**
-	 * represent the result as string
-	 * @param num
-	 * @param index
-	 * @return
-	 */
-	private static ArrayList<String> getAllCombination(int[] num, int index)
-	{
-		ArrayList<String> sol = new ArrayList<String>();
-		if (index == num.length)
-		{
-			// sol = new ArrayList<String>();
-			sol.add("");
-			return sol;
-		}
-		else
-		{
-			ArrayList<String> strList = getAllCombination(num, index + 1);
-			String character = Integer.toString(num[index]);
-			for (String s : strList)
-			{
-				for (int i = 0; i <= s.length(); i++)
-				{
-					sol.add(insertChar(s, i, character));
-				}
-			}
-		}
-		return sol;
-	}
-	private static String insertChar(String s, int index, String c)
-	{
-		return s.substring(0, index) + c + s.substring(index);
-	}
-	
-	
 	public static void main(String[] args)
 	{
-		int[] num = {0,1,2 };
+		int[] num = {1,2,3};
 		ArrayList<ArrayList<Integer>> sol = permute(num);
-		System.out.println(getAllCombination(num,0));
 		System.out.println(sol);
 	}
-
 }

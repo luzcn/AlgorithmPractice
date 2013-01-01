@@ -41,12 +41,11 @@ public class PalindromeNumber
 	{
 		if (x < 0)
 			return false;
-		int div = 1;
 		
+		int div = 1;
 		while (x / div >= 10)
-		{
 			div *= 10;
-		}
+		
 		while (x != 0)
 		{
 			int l = x / div;

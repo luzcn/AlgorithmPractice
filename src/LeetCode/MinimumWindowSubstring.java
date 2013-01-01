@@ -22,7 +22,6 @@ import java.util.HashMap;
  */
 public class MinimumWindowSubstring
 {
-
 	public static String minWindow(String S, String T)
 	{
 		HashMap<Character, Integer> needToFind = new HashMap<Character, Integer>();
@@ -47,41 +46,38 @@ public class MinimumWindowSubstring
 		{
 			char c = S.charAt(end);
 
-			if (needToFind.get(c) == null)
-				continue;
-			else
+			if (needToFind.get(c) != null)
 			{
 				if (hasFound.get(c) == null)
 					hasFound.put(c, 1);
 				else
 					hasFound.put(c, hasFound.get(c) + 1);
-			}
 
-			if (hasFound.get(c) <= needToFind.get(c))
-				count++;
+				if (hasFound.get(c) <= needToFind.get(c))
+					count++;
 
-			if (count == T.length()) // find a window
-			{
-				while (needToFind.get(S.charAt(begin)) == null
-						|| hasFound.get(S.charAt(begin)) > needToFind.get(S
-								.charAt(begin)))
+				if (count == T.length()) // find a window
 				{
-					if (hasFound.get(S.charAt(begin)) != null)
-						hasFound.put(S.charAt(begin),
-								hasFound.get(S.charAt(begin)) - 1);
-
-					begin++;
-				}
-
-				int currentLen = end - begin + 1;
-				if (currentLen < minLen)
-				{
-					result = S.substring(begin,end+1);
-					minLen = currentLen;
+					// increase the begin index as far as you can
+					while (needToFind.get(S.charAt(begin)) == null
+							|| hasFound.get(S.charAt(begin)) > needToFind.get(S
+									.charAt(begin)))
+					{
+						if (hasFound.get(S.charAt(begin)) != null)
+							hasFound.put(S.charAt(begin),
+									hasFound.get(S.charAt(begin)) - 1);
+						begin++;
+					}
+					int currentLen = end - begin + 1;
+					if (currentLen < minLen)
+					{
+						result = S.substring(begin, end + 1);
+						minLen = currentLen;
+					}
 				}
 			}
 		}
-		
+
 		return result;
 	}
 

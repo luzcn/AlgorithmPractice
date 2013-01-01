@@ -12,11 +12,8 @@ public class LIS2D
 	public static void findLISin2D(int[][] m)
 	{
 		int[][] dp = new int[m.length][m.length];
-		
-		
 		int current= 0;
-		
-		
+
 		for (int i = 0;i<m.length;i++)
 		{
 			for (int j = 0;j<m.length;j++)

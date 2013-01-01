@@ -11,10 +11,9 @@ import java.util.ArrayList;
  * @author Zheng Lu Sep 20, 2012
  * 
  */
-public class Permutation
+public class PermutationAndCombination
 {
-
-	public static ArrayList<String> getPerms(String s)
+	public static ArrayList<String> getStringPermutation(String s)
 	{
 		ArrayList<String> permutations = new ArrayList<String>();
 		if (s == null)
@@ -26,12 +25,12 @@ public class Permutation
 		}
 		char first = s.charAt(0); // get the first character
 		String remainder = s.substring(1); // remove the first character;
-		ArrayList<String> words = getPerms(remainder);
+		ArrayList<String> words = getStringPermutation(remainder);
 
 		for (String word : words)
 		{
-//			for (int i = 0;i<s.length(); i++)
-			for (int i = 0; i <= word.length() ; i++)
+			// for (int i = 0;i<s.length(); i++)
+			for (int i = 0; i <= word.length(); i++)
 			{
 				// insert the first character to the word for each position
 				permutations.add(insertCharToString(word, first, i));
@@ -58,18 +57,18 @@ public class Permutation
 	 * @param num
 	 * @return
 	 */
-	public static ArrayList<ArrayList<Integer>> permute(int[] num)
+	public static ArrayList<ArrayList<Integer>> permutation(int[] num)
 	{
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		for (int i = 0; i < num.length; i++)
 			list.add(num[i]);
 
-		return getPerms(list, 0, new ArrayList<Integer>(),
+		return getPerms(list, new ArrayList<Integer>(),
 				new ArrayList<ArrayList<Integer>>());
 	}
 
 	private static ArrayList<ArrayList<Integer>> getPerms(
-			ArrayList<Integer> numlist, int index, ArrayList<Integer> current,
+			ArrayList<Integer> numlist, ArrayList<Integer> current,
 			ArrayList<ArrayList<Integer>> solution)
 	{
 		if (numlist.size() == 0)
@@ -78,11 +77,11 @@ public class Permutation
 			return solution;
 		}
 
-		for (int i = index; i < numlist.size(); i++)
+		for (int i = 0; i < numlist.size(); i++)
 		{
 			current.add(numlist.get(i));
 			numlist.remove(i);
-			getPerms(numlist, index, current, solution);
+			getPerms(numlist, current, solution);
 			numlist.add(i, current.get(current.size() - 1));
 			current.remove(current.size() - 1);
 		}
@@ -91,13 +90,55 @@ public class Permutation
 	}
 
 	/**
-	 * @param args
+	 * Given two integers n and k, return all possible combinations of k numbers
+	 * out of 1 ... n. For example, If n = 4 and k = 2, a solution is:[ [2,4],
+	 * [3,4], [2,3], [1,2], [1,3], [1,4],]
+	 * 
 	 */
+	public ArrayList<ArrayList<Integer>> combination(int n, int k)
+	{
+		ArrayList<ArrayList<Integer>> solution = new ArrayList<ArrayList<Integer>>();
+		if (n == 0 || n < k)
+			return solution;
+
+		int[] arr = new int[n];
+		for (int i = 0; i < n; i++)
+			arr[i] = i + 1;
+
+		combRec(arr, k, solution, new ArrayList<Integer>(), 0);
+		return solution;
+	}
+
+	private void combRec(int[] arr, int k,
+			ArrayList<ArrayList<Integer>> solution, ArrayList<Integer> current,
+			int index)
+	{
+		if (current.size() == k)
+		{
+			solution.add(new ArrayList<Integer>(current));
+			return;
+		}
+		else
+		{
+			for (int i = index; i < arr.length; i++)
+			{
+				current.add(arr[i]);
+				combRec(arr, k, solution, current, i + 1);
+				current.remove(current.size() - 1);
+			}
+		}
+	}
+
 	public static void main(String[] args)
 	{
 		int[] num = { 1, 2, 3 };
-		ArrayList<ArrayList<Integer>> sol = permute(num);
+		ArrayList<ArrayList<Integer>> sol = permutation(num);
 		System.out.println(sol);
+		
+		String s = "123";
+		ArrayList<String> ss = getStringPermutation(s);
+		System.out.println(ss);
+		
 	}
 
 }
