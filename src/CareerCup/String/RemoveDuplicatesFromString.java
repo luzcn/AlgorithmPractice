@@ -1,8 +1,5 @@
 package CareerCup.String;
 
-import java.util.Collection;
-import java.util.Hashtable;
-import java.util.Iterator;
 
 public class RemoveDuplicatesFromString
 {

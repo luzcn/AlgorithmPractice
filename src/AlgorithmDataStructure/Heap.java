@@ -95,7 +95,6 @@ public class Heap
 		int largest = i;
 
 		if (l <= this.size && array[l] > array[i]) // the left child is larger
-													// than parent
 			largest = l;
 
 		if (r <= this.size && array[r] > array[largest])

@@ -1,5 +1,6 @@
 package LeetCode;
 
+
 /**
  * Reverse a linked list from position m to n. Do it in-place and in one-pass.
  * 
@@ -56,6 +57,58 @@ public class ReverseLinkedListBetween
 			head = prev;
 
 		return head;
+	}
+
+	/**
+	 * Take only ONE path
+	 * @param head
+	 * @param m
+	 * @param n
+	 * @return
+	 */
+	public ListNode reverse(ListNode head, int m, int n)
+	{
+
+		if (head == null || head.next == null || m >= n)
+			return head;
+
+		int count1 = 1;
+		int count2 = 1;
+		ListNode p = head;
+		ListNode q = head.next;
+		ListNode prev_p = null;
+		ListNode prev_q = null;
+
+		while (p != null && q != null && count2 < n)
+		{
+			count2++;
+			if (count1 < m)
+			{
+				prev_p = p;
+				p = p.next;
+				q = q.next;
+				count1++;
+			}
+			else
+			{
+				prev_q = q;
+				ListNode temp = q.next;
+				q.next = p;
+				p = q;
+				q = temp;
+			}
+		}
+		if (prev_p != null)
+		{
+			prev_p.next.next = q;
+			prev_p.next = prev_q;
+			return head;
+		}
+		else
+		{
+			head.next = q;
+			return prev_q;
+		}
 	}
 
 	public static void main(String[] args)

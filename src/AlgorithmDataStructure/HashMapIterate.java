@@ -31,11 +31,11 @@ public class HashMapIterate
 	public void sortMap(HashMap<Integer, Integer> map)
 	{
 		ArrayList<Entry<Integer, Integer>> list = new ArrayList<Entry<Integer, Integer>>();
-		
+
 		list.addAll(map.entrySet());
-		
+
 		Collections.sort(list, new myComp());
-		
+
 		for (Entry<Integer, Integer> p : list)
 		{
 			System.out.println(p.getKey() + " " + p.getValue());
@@ -55,14 +55,14 @@ public class HashMapIterate
 	public static void main(String[] args)
 	{
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		
+
 		map.put(1, 123);
 		map.put(2, 34);
 		map.put(23, 323);
-		
+
 		HashMapIterate hmi = new HashMapIterate();
-//		hmi.mapIteration(map);
-		
+		// hmi.mapIteration(map);
+
 		hmi.sortMap(map);
 	}
 

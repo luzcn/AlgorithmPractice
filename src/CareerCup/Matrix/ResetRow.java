@@ -3,91 +3,56 @@ package CareerCup.Matrix;
 import java.util.ArrayList;
 
 /**
- * Write an algorithm such that if an element in an MxN matrix is 0, 
- * its entire row and column is set to 0.
+ * Write an algorithm such that if an element in an MxN matrix is 0, its entire
+ * row and column is set to 0.
+ * 
  * @author Zheng Lu
- *
+ * 
  */
 public class ResetRow
 {
-	private static final int Row = 3;		// M*N
-	private static final int Column = 3;
-	
-	private int[][] matrix = new int[Row][Column];
-	public ResetRow()
+	public void reset(int[][] M)
 	{
-		matrix[0][0] = 1;
-		matrix[0][1] = 1;
-		matrix[0][2] = 1;
-		
-		matrix[1][0] = 2;
-		matrix[1][1] = 0;
-		matrix[1][2] = 34;
-		
-		matrix[2][0] = 4;
-		matrix[2][1] = 5;
-		matrix[2][2] = 6;
-	}
-	
-	//brutal force?!
-	private void reset()
-	{
-		ArrayList<zeroPos> zeros = new ArrayList<zeroPos>();
-		for (int i = 0;i<Row;i++)
+		int[] row = new int[M.length];
+		int[] col = new int[M[0].length];
+
+		for (int i = 0; i < M.length; i++)
 		{
-			for (int j = 0;j<Column;j++)
+			for (int j = 0; j < M[0].length; j++)
 			{
-				if (matrix[i][j] == 0)
+				if (M[i][j] == 0)
 				{
-					zeroPos pos = new zeroPos(i,j);
-					zeros.add(pos);
+					row[i] = 1;
+					col[j] = 1;
+				}
+
+			}
+		}
+
+		for (int i = 0; i < M.length; i++)
+		{
+			for (int j = 0; j < M[0].length; j++)
+			{
+				if (row[i] == 1 || col[j] == 1)
+				{
+					M[i][j] = 0;
 				}
 			}
 		}
-		
-		for (zeroPos p:zeros)
-		{
-			//set row to zeros
-			for (int i=0;i<Column;i++)
-			{
-				matrix[p.row][i] = 0;
-			}
-			
-			//set column to zeros
-			for (int i=0;i<Row;i++)
-			{
-				matrix[i][p.column] = 0;
-			}
-		}
+		print(M);
 	}
-	
-	public static void main(String[] args)
+
+	private void print(int[][] M)
 	{
-		ResetRow rs = new ResetRow();
-		rs.reset();
-		
-		for (int i = 0;i<Row;i++)
+		for (int i = 0; i < M.length; i++)
 		{
-			for (int j = 0;j<Column;j++)
+			for (int j = 0; j < M[0].length; j++)
 			{
-				System.out.print(rs.matrix[i][j]);
+				System.out.print(M[i][j] + "  ");
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
-	
-/******************************************/	
-	private class zeroPos
-	{
-		int row;
-		int column;
-		
-		public zeroPos(int row, int column)
-		{
-			this.row = row;
-			this.column = column;
-		}
-	}
+
 }
-
-

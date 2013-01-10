@@ -2,6 +2,7 @@ package LeetCode;
 
 import java.util.ArrayList;
 
+
 /**
  * Two elements of a binary search tree (BST) are swapped by mistake.
  * 
@@ -15,6 +16,10 @@ import java.util.ArrayList;
 public class RecoverBinarySearchTree
 {
 	ArrayList<TreeNode> list = new ArrayList<TreeNode>();
+	private TreeNode prev = null;
+	private TreeNode prevRev = null;
+	private TreeNode first;
+	private TreeNode second;
 
 	public void recoverTree(TreeNode root)
 	{
@@ -60,6 +65,62 @@ public class RecoverBinarySearchTree
 		inordertree(root.left);
 		this.list.add(root);
 		inordertree(root.right);
+	}
+
+	public void recoverTree2(TreeNode root)
+	{
+		prev = null;
+		prevRev = null;
+		first = null;
+		second = null;
+
+		if (root == null)
+			return;
+
+		inOrder(root);
+		inOrderReverse(root);
+
+		if (first != null && second != null)
+		{
+			int temp = first.val;
+			first.val = second.val;
+			second.val = temp;
+		}
+
+		System.out.println(prev.val);
+		System.out.println(prevRev.val);
+	}
+
+	private void inOrder(TreeNode node)
+	{
+		if (node == null)
+			return;
+
+		inOrder(node.left);
+		if (prev != null && prev.val >= node.val)
+		{
+			first = prev;
+			return;
+		}
+		prev = node;
+
+		inOrder(node.right);
+	}
+
+	private void inOrderReverse(TreeNode node)
+	{
+		if (node == null)
+			return;
+
+		inOrderReverse(node.right);
+		if (prevRev != null && prevRev.val <= node.val)
+		{
+			second = prevRev;
+			return;
+		}
+		prevRev = node;
+
+		inOrderReverse(node.left);
 	}
 
 	public static void main(String[] args)

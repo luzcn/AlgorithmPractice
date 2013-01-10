@@ -16,6 +16,39 @@ package LeetCode;
  */
 public class SearchInRotatedSortedArray
 {
+	public int searchInRotatedSortedArray(int[] A, int t)
+	{
+		int l = 0;
+		int r = A.length - 1;
+
+		while (l <= r)
+		{
+			int m = (l + r) / 2;
+			if (t == A[m])
+				return m;
+			else if (A[l] <= A[m])
+			{
+				if (t > A[m])
+					l = m + 1;
+				else if (t >= A[l])
+					r = m - 1;
+				else
+					l = m + 1;
+			}
+			else
+			// A[l] > A[m]
+			{
+				if (t < A[m])
+					r = m - 1;
+				else if (t <= A[r])
+					l = m + 1;
+				else
+					r = m - 1;
+			}
+		}
+		return -1;
+	}
+
 	public int search(int[] A, int target)
 	{
 		int n = A.length;
@@ -43,9 +76,11 @@ public class SearchInRotatedSortedArray
 						l = mid + 1;
 					else
 						r = mid - 1;
-				} else
+				}
+				else
 					r = mid - 1;
-			} else
+			}
+			else
 			{
 				if (target == A[r])
 					return r;
@@ -59,9 +94,11 @@ public class SearchInRotatedSortedArray
 							l = mid + 1;
 						else
 							r = mid - 1;
-					} else
+					}
+					else
 						l = mid + 1;
-				} else
+				}
+				else
 					l = mid + 1;
 			}
 		}
@@ -70,9 +107,10 @@ public class SearchInRotatedSortedArray
 
 	public static void main(String[] args)
 	{
-		int[] arr = { 4, 5, 6, 7, 8, 1, 2, 3 };
+		int[] arr = {2,2,3,2,2,2,2};
 		SearchInRotatedSortedArray sr = new SearchInRotatedSortedArray();
-		System.out.println(sr.search(arr, 8));
+//		System.out.println(sr.search(arr, 8));
+		System.out.println(sr.searchInRotatedSortedArray(arr, 3));
 	}
 
 }

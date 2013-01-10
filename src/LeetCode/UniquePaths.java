@@ -37,6 +37,39 @@ public class UniquePaths
 		return table[m - 1][n - 1];
 	}
 
+	/**
+	 * Space O(m+n)
+	 * 
+	 * @param m
+	 * @param n
+	 * @return
+	 */
+	public int uniquePaths2(int m, int n)
+	{
+		if (m <= 0 || n <= 0)
+			return 0;
+
+		int[] rowArr = new int[n];
+		int[] colArr = new int[m];
+
+		for (int i = 0; i < n; i++)
+			rowArr[i] = 1;
+		for (int i = 0; i < m; i++)
+			colArr[i] = 1;
+
+		for (int i = 1; i < m; i++)
+		{
+			for (int j = 1; j < n; j++)
+			{
+				int val = rowArr[j] + colArr[i];
+				rowArr[j] = val;
+				colArr[i] = val;
+			}
+		}
+
+		return rowArr[n - 1];
+	}
+
 	/***
 	 * Follow up for "Unique Paths":
 	 * 

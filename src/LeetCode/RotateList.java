@@ -17,9 +17,9 @@ public class RotateList
 		if (head == null)
 			return head;
 
-		int size = 1;
+		int size = 0;
 		ListNode p = head;
-		while (p.next != null)
+		while (p != null)
 		{
 			size++;
 			p = p.next;
