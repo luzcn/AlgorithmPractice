@@ -20,6 +20,7 @@ public class PermutationAndCombination
 			return null;
 		else if (s.length() == 0)
 		{
+			permutations = new ArrayList<String>();
 			permutations.add("");
 			return permutations;
 		}
@@ -46,6 +47,39 @@ public class PermutationAndCombination
 		String secondSubStr = str.substring(index);
 
 		return firstSubStr + c + secondSubStr;
+	}
+
+	/**
+	 * Given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and
+	 * s2.
+	 * 
+	 * For example, Given: s1 = "aabcc", s2 = "dbbca",
+	 * 
+	 * When s3 = "aadbbcbcac", return true. When s3 = "aadbbbaccc", return
+	 * false.
+	 * 
+	 * 
+	 */
+	public static ArrayList<String> stringInterleaving(String s, String t)
+	{
+		ArrayList<String> solution = new ArrayList<String>();
+		if (s.isEmpty())
+			solution.add(t);
+		else if (t.isEmpty())
+			solution.add(s);
+		else
+		{
+			for (int i = 0; i <= s.length(); i++)
+			{
+				char first = t.charAt(0);
+				String left = s.substring(0, i);
+				String right = s.substring(i);
+
+				for (String str : stringInterleaving(right, t.substring(1)))
+					solution.add(left + first + str);
+			}
+		}
+		return solution;
 	}
 
 	/***
@@ -87,6 +121,65 @@ public class PermutationAndCombination
 		}
 
 		return solution;
+	}
+
+	private boolean[] canuse;
+	private ArrayList<ArrayList<Integer>> solution;
+
+	public ArrayList<ArrayList<Integer>> permutationWithDup(int[] nums)
+	{
+		solution = new ArrayList<ArrayList<Integer>>();
+		if (nums.length == 0)
+			return solution;
+
+		canuse = new boolean[nums.length];
+
+		ArrayList<Integer> numList = new ArrayList<Integer>();
+		for (int i = 0; i < nums.length; i++)
+			numList.add(nums[i]);
+
+		permutationWithDupRec(numList, new ArrayList<Integer>());
+		return solution;
+	}
+
+	private void permutationWithDupRec(ArrayList<Integer> numList,
+			ArrayList<Integer> current)
+	{
+		if (numList.size() == 0)
+		{
+			solution.add(new ArrayList<Integer>(current));
+			return;
+		}
+		for (int i = 0; i < numList.size(); i++)
+		{
+			if (i == 0)
+			{
+				canuse[i] = false;
+				current.add(numList.get(i));
+				numList.remove(i);
+
+				permutationWithDupRec(numList, current);
+
+				numList.add(i, current.get(current.size() - 1));
+				current.remove(current.size() - 1);
+				canuse[i] = true;
+			}
+			else
+			{
+				if (numList.get(i) == numList.get(i - 1) && canuse[i - 1])
+					continue;
+
+				canuse[i] = false;
+				current.add(numList.get(i));
+				numList.remove(i);
+
+				permutationWithDupRec(numList, current);
+
+				numList.add(i, current.get(current.size() - 1));
+				current.remove(current.size() - 1);
+				canuse[i] = true;
+			}
+		}
 	}
 
 	/**
@@ -134,11 +227,11 @@ public class PermutationAndCombination
 		int[] num = { 1, 2, 3 };
 		ArrayList<ArrayList<Integer>> sol = permutation(num);
 		System.out.println(sol);
-		
+
 		String s = "123";
 		ArrayList<String> ss = getStringPermutation(s);
 		System.out.println(ss);
-		
+
 	}
 
 }

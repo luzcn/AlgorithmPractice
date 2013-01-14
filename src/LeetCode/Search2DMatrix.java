@@ -43,9 +43,57 @@ public class Search2DMatrix
 		return false;
 	}
 
+	public boolean searchMatrixQuadPartation(int[][] matrix, int target)
+	{
+		int i = 0;
+		int j = 0;
+		int k = matrix.length - 1;
+		int l = matrix[0].length - 1;
+
+		return searchMatrixQuadPartationRec(matrix, target, i, j, k, l);
+	}
+
+	/**
+	 * 
+	 * @param matrix
+	 * @param target
+	 */
+	private boolean searchMatrixQuadPartationRec(int[][] matrix, int target,
+			int i, int j, int k, int l)
+	{
+		if (i > k || j > l)
+			return false;
+
+//		int midX = i + (k - i) / 2;
+//		int midY = l + (j - l) / 2;
+		int midX = (i + k)/2;
+		int midY = (j + l)/2;
+
+		if (target == matrix[midX][midY])
+			return true;
+		else if (i == k || j == l)
+			return false;
+
+		if (target < matrix[midX][midY])
+			return searchMatrixQuadPartationRec(matrix, target, i, j, midX,
+					midY);
+		else
+			return searchMatrixQuadPartationRec(matrix, target, midX + 1, j, k,
+					midY)
+					|| searchMatrixQuadPartationRec(matrix, target, i,
+							midY + 1, midX, l)
+					|| searchMatrixQuadPartationRec(matrix, target, midX + 1,
+							midY + 1, k, l);
+	}
+
 	public static void main(String[] args)
 	{
+		int[][] M = { { 1, 4, 7, 11, 15 }, { 2, 5, 8, 12, 19 },
+				{ 3, 6, 9, 16, 22 }, { 10, 13, 14, 17, 24 },
+				{ 18, 21, 23, 26, 30 } };
+		Search2DMatrix sm = new Search2DMatrix();
 
+		System.out.println(sm.searchMatrixQuadPartation(M, 21));
 	}
 
 }

@@ -22,22 +22,23 @@ public class Combinations
 		return combineWithElement(arr, k, 0, new ArrayList<Integer>(),
 				new ArrayList<ArrayList<Integer>>());
 	}
-	private static ArrayList<ArrayList<Integer>> combineWithElement(int[] arr, int k,
-			int index, ArrayList<Integer> currentList,
+
+	private static ArrayList<ArrayList<Integer>> combineWithElement(int[] arr,
+			int k, int index, ArrayList<Integer> currentList,
 			ArrayList<ArrayList<Integer>> solution)
 	{
 		if (currentList.size() == k)
 		{
 			solution.add(new ArrayList<Integer>(currentList));
 			return solution;
-		} else
+		}
+		else
 		{
-			while (index < arr.length)
+			for (int i = index; i < arr.length; i++)
 			{
-				currentList.add(arr[index]);
-				combineWithElement(arr, k, index+1, currentList, solution);
+				currentList.add(arr[i]);
+				combineWithElement(arr, k, i + 1, currentList, solution);
 				currentList.remove(currentList.size() - 1);
-				index++;
 			}
 		}
 		return solution;
@@ -45,10 +46,10 @@ public class Combinations
 
 	public static void main(String[] args)
 	{
-		int n = 7;
+		int n = 4;
 		int k = 2;
-		ArrayList<ArrayList<Integer>> solution = combine(n,k);
-		for (ArrayList<Integer> s:solution)
+		ArrayList<ArrayList<Integer>> solution = combine(n, k);
+		for (ArrayList<Integer> s : solution)
 			System.out.println(s);
 	}
 }

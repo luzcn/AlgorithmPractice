@@ -23,34 +23,26 @@ public class Subsets
 {
 	public ArrayList<ArrayList<Integer>> subsets(int[] S)
 	{
-		return subsetsRec(S, 0);
+		ArrayList<ArrayList<Integer>> solution = new ArrayList<ArrayList<Integer>>();
+
+		return powerSetRec(S, solution, new ArrayList<Integer>(), 0);
 	}
 
-	private ArrayList<ArrayList<Integer>> subsetsRec(int[] S, int index)
+	private ArrayList<ArrayList<Integer>> powerSetRec(int[] arr,
+			ArrayList<ArrayList<Integer>> solution,
+			ArrayList<Integer> currentList, int index)
 	{
-		ArrayList<ArrayList<Integer>> allsubsets = null;
-		if (S.length == index)
-		{
-			// add the empty set
-			allsubsets = new ArrayList<ArrayList<Integer>>();
-			allsubsets.add(new ArrayList<Integer>());
-		}
-		else
-		{
-			allsubsets = subsetsRec(S, index + 1);
+		solution.add(new ArrayList<Integer>(currentList));
+		if (index >= arr.length)
+			return solution;
 
-			int item = S[index];
-			ArrayList<ArrayList<Integer>> moreSubsets = new ArrayList<ArrayList<Integer>>();
-
-			for (ArrayList<Integer> subset : allsubsets)
-			{
-				ArrayList<Integer> newSubset = new ArrayList<Integer>(subset);
-				newSubset.add(item);
-				moreSubsets.add(newSubset);
-			}
-			allsubsets.addAll(moreSubsets);
+		for (int i = index; i < arr.length; i++)
+		{
+			currentList.add(arr[i]);
+			powerSetRec(arr, solution, currentList, i + 1);
+			currentList.remove(currentList.size() - 1);
 		}
-		return allsubsets;
+		return solution;
 	}
 
 	/***
@@ -71,37 +63,45 @@ public class Subsets
 	 */
 	public ArrayList<ArrayList<Integer>> subsets2(int[] S)
 	{
-		return subsetsRec2(S, 0);
+		ArrayList<ArrayList<Integer>> solution = new ArrayList<ArrayList<Integer>>();
+		if (S.length == 0)
+			return solution;
+		boolean[] canUse = new boolean[S.length];
+
+		return subsetsRec2(S, solution, new ArrayList<Integer>(), canUse, 0);
 	}
 
-	private ArrayList<ArrayList<Integer>> subsetsRec2(int[] S, int index)
+	private ArrayList<ArrayList<Integer>> subsetsRec2(int[] S,
+			ArrayList<ArrayList<Integer>> solution, ArrayList<Integer> current,
+			boolean[] canUse, int index)
 	{
-		ArrayList<ArrayList<Integer>> allsubsets = null;
-		if (S.length == index)
-		{
-			// add the empty set
-			allsubsets = new ArrayList<ArrayList<Integer>>();
-			allsubsets.add(new ArrayList<Integer>());
-		}
-		else
-		{
-			allsubsets = subsetsRec2(S, index + 1);
-			int item = S[index];
-			ArrayList<ArrayList<Integer>> moreSubsets = new ArrayList<ArrayList<Integer>>();
+		solution.add(new ArrayList<Integer>(current));
+		if (index >= S.length)
+			return solution;
 
-			for (ArrayList<Integer> subset : allsubsets)
+		for (int i = index; i < S.length; i++)
+		{
+			if (i == 0)
 			{
-				ArrayList<Integer> newSubset = new ArrayList<Integer>(subset);
-				newSubset.add(item);
-				if (!moreSubsets.contains(newSubset))
-					moreSubsets.add(newSubset);
+				canUse[i] = false;
+				current.add(S[i]);
+				subsetsRec2(S, solution, current, canUse, i + 1);
+				current.remove(current.size() - 1);
+				canUse[i] = true;
 			}
-			if (!allsubsets.contains(moreSubsets))
-				allsubsets.addAll(moreSubsets);
+			else
+			{
+				if (S[i] == S[i - 1] && canUse[i - 1])
+					continue;
+
+				canUse[i] = false;
+				current.add(S[i]);
+				subsetsRec2(S, solution, current, canUse, i + 1);
+				current.remove(current.size() - 1);
+				canUse[i] = true;
+			}
 		}
-
-		return allsubsets;
-
+		return solution;
 	}
 
 	public ArrayList<ArrayList<Integer>> subsetsNonRec(int[] S)
@@ -130,7 +130,7 @@ public class Subsets
 	{
 		Subsets sub = new Subsets();
 		ArrayList<ArrayList<Integer>> subset = sub
-				.subsets2(new int[] {1,2,2});
+				.subsets2(new int[] { 1, 2, 2 });
 		System.out.println(subset);
 
 	}
