@@ -54,18 +54,24 @@ public class WordSearch
 			++index;
 
 			return (searchRec(board, word, index, i + 1, j)
-					| searchRec(board, word, index, i - 1, j)
-					| searchRec(board, word, index, i, j - 1) | searchRec(board,
+					|| searchRec(board, word, index, i - 1, j)
+					|| searchRec(board, word, index, i, j - 1) || searchRec(board,
 						word, index, i, j + 1));
 		}
 
 		return false;
 	}
 	
-	private boolean searchDP(char[][] board, String word)
+	private void print(char[][] board)
 	{
-		
-		return false;
+		for (int i = 0; i< board.length; i++)
+		{
+			for (int j = 0; j < board[0].length; j++)
+			{
+				System.out.print(board[i][j] +" ");
+			}
+			System.out.println();
+		}
 	}
 
 	public static void main(String[] args)
@@ -74,7 +80,7 @@ public class WordSearch
 		String word = "SEE";
 		WordSearch ws = new WordSearch();
 		System.out.println(ws.exist(board, word));
-		
+		ws.print(board);
 	}
 
 }

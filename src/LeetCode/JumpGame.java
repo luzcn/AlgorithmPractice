@@ -23,35 +23,36 @@ import java.util.ArrayList;
  */
 public class JumpGame
 {
-	public boolean canJump(int[] A) 
-    {
-        int n = A.length;
-        if (n == 1)
-            return true;
-        
-        boolean[] reachable = new boolean[n];
-        reachable[0] = true;
-        
-        for (int i = 0;i<n;i++)
-        {
-            if (reachable[i])
-            {
-                int a = A[i];
-                if (i + a >= n -1)
-                    return true;
-                    
-                for (int j = 1;j<= a; j++)
-                    reachable[i + j] = true;
-            }
-            else
-                return false;
-        }
+	public boolean canJump(int[] A)
+	{
+		int n = A.length;
+		if (n == 1)
+			return true;
+
+		boolean[] reachable = new boolean[n];
+		reachable[0] = true;
+
+		for (int i = 0; i < n; i++)
+		{
+			if (reachable[i])
+			{
+				int a = A[i];
+				if (i + a >= n - 1)
+					return true;
+
+				for (int j = 1; j <= a; j++)
+					reachable[i + j] = true;
+			}
+			else
+				return false;
+		}
 		return false;
-    }
+	}
+
 	/***
-	 * Greedy solution
-	 * for each entry, we can find a jump range. From this range, we get the maximum
-	 * number and continue in next entry.
+	 * Greedy solution for each entry, we can find a jump range. From this
+	 * range, we get the maximum number and continue in next entry.
+	 * 
 	 * @param A
 	 * @return
 	 */
@@ -59,13 +60,14 @@ public class JumpGame
 	{
 		int current = 0;
 		int n = A.length;
-		int jumps = 0;	//The total jumps
-		int current_furtherest = 0;	//the furtherest steps can go from current position 
+		int jumps = 0; // The total jumps
+		int current_furtherest = 0; // the furtherest steps can go from current
+									// position
 		ArrayList<Integer> path = new ArrayList<Integer>();
-		
-		while(current<n)
+
+		while (current < n)
 		{
-			current_furtherest = A[current]+current;
+			current_furtherest = A[current] + current;
 			if (current_furtherest - current == 0)
 			{
 				System.out.println("Unreachable");
@@ -76,18 +78,18 @@ public class JumpGame
 				path.add(A[current]);
 				jumps++;
 			}
-			if (current_furtherest >= n-1) 
+			if (current_furtherest >= n - 1)
 			{
 				System.out.println(path);
 				return jumps;
 			}
-			
+
 			int maxJumpInRange = 0;
-			for (int i = current+1;i<=current_furtherest;i++)
+			for (int i = current + 1; i <= current_furtherest; i++)
 			{
-				if (A[i]+i > maxJumpInRange)
+				if (A[i] + i > maxJumpInRange)
 				{
-					maxJumpInRange = A[i]+i;
+					maxJumpInRange = A[i] + i;
 					current = i;
 				}
 			}
@@ -97,7 +99,7 @@ public class JumpGame
 
 	public static void main(String[] args)
 	{
-		int[] A = {1};
+		int[] A = { 1 };
 		System.out.println(jump(A));
 	}
 

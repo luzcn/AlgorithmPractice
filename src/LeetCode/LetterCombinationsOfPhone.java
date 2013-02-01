@@ -35,6 +35,9 @@ public class LetterCombinationsOfPhone
 		map.put('0', " ");
 
 		ArrayList<String> solution = new ArrayList<String>();
+		if (digits == null)
+			return solution;
+
 		combineRec(digits, 0, map, new String(), solution);
 
 		return solution;
@@ -50,7 +53,8 @@ public class LetterCombinationsOfPhone
 		{
 			solution.add(solStr);
 			return;
-		} else
+		}
+		else
 		{
 			for (int i = index; i < digits.length(); i++)
 			{

@@ -18,8 +18,30 @@ public class DecodeWays
 	{
 		if (s.length() == 0)
 			return 0;
-//		return decodingNonRec(s);
-		 return decodingRec(s, new ArrayList<Integer>()).size();
+		if (s.length() == 1 && s.charAt(0) == '0')
+			return 0;
+
+		return decodingRec(s, new ArrayList<Integer>()).size();
+	}
+
+	private static int decodeWaysDP(String s)
+	{
+		int[] ways = new int[s.length() + 1];
+		ways[s.length()] = 1;
+
+		for (int i = s.length() - 1; i >= 0; i--)
+		{
+			if (s.charAt(i) == '0')
+				ways[i] = 0;
+			else
+				ways[i] = ways[i + 1];
+
+			if (i + 1 < s.length()
+					&& (s.charAt(i) == '1' || s.charAt(i) == '2'
+							&& s.charAt(i + 1) <= '6'))
+				ways[i] += ways[i + 2];
+		}
+		return ways[0];
 	}
 
 	private static int decodingNonRec(String s)
@@ -30,7 +52,7 @@ public class DecodeWays
 		int a = 1;
 		// the first character is not 0
 		int b = (Character.getNumericValue(s.charAt(0)) > 0) ? 1 : 0;
-		
+
 		for (int i = 1; i < len; i++)
 		{
 			int c = 0;

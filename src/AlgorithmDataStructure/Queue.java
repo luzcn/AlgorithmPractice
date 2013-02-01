@@ -1,82 +1,137 @@
 package AlgorithmDataStructure;
 
-public class Queue<T>
+public class Queue
 {
-	private Node<T> first;	//the first element;
-	private Node<T> last;	//the last element;
-	private int N;			//the size of the queue;
-	
+	private ListNode first;
+	private ListNode last;
+	private int size;
+
 	public Queue()
 	{
 		first = null;
 		last = null;
-		N = 0;
+		size = 0;
 	}
 
-	public void push(T data)
+	public boolean isEmpty()
+	{
+		return size == 0;
+	}
+
+	public void add(int n)
 	{
 		if (isEmpty())
 		{
-			last = new Node<T>(data);
-			first = last;
+			first = new ListNode(n);
+			last = first;
+			size++;
 		}
 		else
 		{
-			last.next = new Node<T>(data);
-			last = last.next;
+			ListNode newNode = new ListNode(n);
+			last.next = newNode;
+			last = newNode;
+			size++;
 		}
-		N++;
 	}
-	
-	public T pop()
+
+	public int poll()
 	{
-		if (isEmpty()) return null;
-		T data = first.data;
+		int n = peek();
 		first = first.next;
-		N--;
-		return data;
+		size--;
+
+		return n;
 	}
-	
-	public int size()
+
+	public int peek()
 	{
-		return N;
+		if (isEmpty())
+			throw new RuntimeException("Queue Empty");
+		else
+			return first.val;
 	}
-	
-	public boolean isEmpty()
+
+	public int dequeueMax()
 	{
-		return N==0;
+		int max = max();
+		if (isEmpty())
+			throw new RuntimeException("Queue Empty");
+
+		if (first.val == max)
+		{
+			first = first.next;
+			size--;
+		}
+		else
+		{
+			ListNode p = first;
+			while (p != null)
+			{
+				if (p.next != null && p.next.val == max)
+				{
+					p.next = p.next.next;
+					break;
+				}
+				p = p.next;
+			}
+			if (p.next == null)
+				last = p;
+
+			size--;
+		}
+
+		return max;
 	}
-	
-	
+
+	public int max()
+	{
+		if (isEmpty())
+			return Integer.MIN_VALUE;
+
+		int max = first.val;
+
+		ListNode p = first.next;
+		while (p != null)
+		{
+			if (p.val > max)
+				max = p.val;
+			p = p.next;
+		}
+		return max;
+	}
+
+	private void printAll()
+	{
+		if (isEmpty())
+			return;
+		ListNode p = first;
+		while (p != null)
+		{
+			System.out.print(p.val + " ");
+			p = p.next;
+		}
+		System.out.println();
+	}
+
 	public static void main(String[] args)
 	{
-		Queue<Integer> q = new Queue<Integer>();
-		q.push(2);
-		q.push(3);
-		q.push(4);
-		System.out.println(q.pop());
-		System.out.println(q.pop());
-		System.out.println(q.pop());
-		System.out.println(q.isEmpty());
+		Queue q = new Queue();
+		q.add(1);
+		q.add(2);
+		q.add(123);
+		q.add(12);
+		q.add(21);
+		q.add(2233);
+
+		q.printAll();
+		// System.out.println(q.max());
+
+		q.dequeueMax();
+		System.out.println(q.max());
+
+		q.add(123123);
+		q.printAll();
 	}
 
-	/***********************************/
-	class Node<T>
-	{
-		public T data;
-		public Node<T> next;
-		
-		public Node()
-		{
-			this.data = null;
-			this.next = null;
-		}
-		
-		public Node(T d)
-		{
-			this();
-			this.data = d;
-		}
-	}
 }
-

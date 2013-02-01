@@ -27,7 +27,8 @@ public class PowerSet
 			allsubset = new ArrayList<ArrayList<Integer>>();
 			// add the empty set
 			allsubset.add(new ArrayList<Integer>());
-		} else
+		}
+		else
 		{
 			/** recursive **/
 			allsubset = computePowerSet(set, index + 1);
@@ -46,26 +47,25 @@ public class PowerSet
 		return allsubset;
 	}
 
-	public ArrayList<ArrayList<Integer>> computePowerSet2(
-			ArrayList<Integer> set)
+	public ArrayList<ArrayList<Integer>> computePowerSet2(ArrayList<Integer> set)
 	{
 		ArrayList<ArrayList<Integer>> allsubset = new ArrayList<ArrayList<Integer>>();
-		int max = 1<<set.size();
-		
-		for (int i = 0;i<max; i++)
+		int max = 1 << set.size();
+
+		for (int i = 0; i < max; i++)
 		{
 			ArrayList<Integer> subset = new ArrayList<Integer>();
 			int k = i;
 			int index = 0;
-			
-			while(k>0)
+
+			while (k > 0)
 			{
-				if ((k&1)>0)
+				if ((k & 1) > 0)
 				{
 					subset.add(set.get(index));
 				}
-				k = k>>1;
-				index ++;
+				k = k >> 1;
+				index++;
 			}
 			allsubset.add(subset);
 		}
@@ -78,18 +78,18 @@ public class PowerSet
 		set.add(1);
 		set.add(2);
 		set.add(3);
-		
+
 		PowerSet ps = new PowerSet();
-		ArrayList<ArrayList<Integer>> powerSet = ps.computePowerSet(set,0);
+		ArrayList<ArrayList<Integer>> powerSet = ps.computePowerSet(set, 0);
 		System.out.println(powerSet);
-		
-//		for (ArrayList<Integer> sub:powerSet)
-//		{
-//			for (int i = 0;i<sub.size();i++)
-//				System.out.print(sub.get(i)+"  ");
-//			
-//			System.out.println();
-//		}
+
+		// for (ArrayList<Integer> sub:powerSet)
+		// {
+		// for (int i = 0;i<sub.size();i++)
+		// System.out.print(sub.get(i)+"  ");
+		//
+		// System.out.println();
+		// }
 	}
 
 }

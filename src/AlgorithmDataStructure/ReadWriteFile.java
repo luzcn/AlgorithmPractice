@@ -27,16 +27,19 @@ public class ReadWriteFile
 			String currentLine;
 			while ((currentLine = br.readLine()) != null)
 				System.out.println(currentLine);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			try
 			{
 				if (br != null)
 					br.close();
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();

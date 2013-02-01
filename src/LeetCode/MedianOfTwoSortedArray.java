@@ -18,19 +18,22 @@ public class MedianOfTwoSortedArray
 		int n = B.length;
 		if (m == 0 || n == 0)
 			return 0;
-
-		int i = 0;
-		int j = 0;
-		int count = 0;
-		int k = (m + n) / 2;
 		int median = 0;
 
+		
 		return median;
+	}
+
+	private int getmedian(int[] nums, int n)
+	{
+		if (n % 2 == 0)
+			return (nums[n / 2] + nums[n / 2 - 1]) / 2;
+		else
+			return nums[n / 2];
 	}
 
 	public static void main(String[] args)
 	{
-		// TODO Auto-generated method stub
 
 	}
 

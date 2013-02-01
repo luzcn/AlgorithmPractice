@@ -29,6 +29,7 @@ public class MaximumSubarray
 			currentSum += A[i];
 			if (currentSum > maxSum)
 				maxSum = currentSum;
+			
 			if (currentSum < 0)
 				currentSum = 0;
 		}

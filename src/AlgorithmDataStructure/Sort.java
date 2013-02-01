@@ -65,6 +65,25 @@ public class Sort
 			System.out.print(a[i] + " ");
 		}
 	}
+	
+	public void insertSort(int[] nums)
+	{
+		if (nums.length < 2)
+			return;
+
+		for (int i = 1; i < nums.length; i++)
+		{
+			int num = nums[i];
+			int j = i;
+
+			while (j >= 0 && num < nums[j - 1])
+			{
+				nums[j] = nums[j - 1];
+				j--;
+			}
+			nums[j] = num;
+		}
+	}
 }
 
 class CountSort

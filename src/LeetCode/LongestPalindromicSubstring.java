@@ -8,39 +8,61 @@ package LeetCode;
 public class LongestPalindromicSubstring
 {
 
-	public static String longestPalindrome(String s)
+	/**
+	 * reverse the string and find the longest common substring with the
+	 * original string
+	 * 
+	 * time: O(n^2), space:O(n^2)
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public String longestPalindrome(String s)
 	{
+		if (s == null)
+			return null;
+
 		int n = s.length();
-		if (n == 0) return "";
-		if (n == 1) return s;
-		
-		String longest = s.substring(0,1);		
-		
-		for (int i = 0;i<n-1;i++)
-		{
-			
-		}
-		
-		return null;
+		if (n < 2)
+			return s;
+
+		return findLongestCommonSubStringDP(s);
 	}
 
-	private static String expandAroundCenter(String s, int c1, int c2)
+	/**
+	 * dp[i][j] = (dp[i + 1][ j - 1] && s.charAt(i) = s.charAt(j))
+	 * 
+	 * base condition: dp[i][i] = true; dp[i][i + 1] = true, if s[i] = s[i+1]
+	 * 
+	 * @param s
+	 * @return
+	 */
+	private String findLongestCommonSubStringDP(String s)
 	{
-		int l = c1;
-		int r = c2;
+		if (s == null)
+			return null;
+
 		int n = s.length();
-		
-		while(l>=0 && r<=n-1 && s.charAt(l)==s.charAt(r))
+
+		boolean dp[][] = new boolean[n][n];
+		for (int i = 0; i < n; i++)
+			dp[i][i] = true;
+
+		for (int i = 0; i < n - 1; i++)
 		{
-			l--;
-			r++;
+			if (s.charAt(i) == s.charAt(i + 1))
+			{
+				dp[i][i + 1] = true;
+			}
 		}
-		return s.substring(l+1,r-l-1);
+		
+		
+
+		return "";
 	}
+
 	public static void main(String[] args)
 	{
-		String s = "stsabcddcbawer";
-		longestPalindrome(s);
 
 	}
 

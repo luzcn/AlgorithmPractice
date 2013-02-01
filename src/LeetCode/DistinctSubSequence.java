@@ -54,13 +54,21 @@ public class DistinctSubSequence
 		int sum = 0;
 		for (int i = 0;i<=m;i++)
 			sum += f[i][n];
+		
+		for (int i = 0; i<= m; i++)
+		{
+			for (int j = 0; j<=n; j++)
+				System.out.print(f[i][j]);
+			System.out.println();
+		}
+		System.out.println();
 		return sum;
 	}
 	
 	public static void main(String[] args)
 	{
 		DistinctSubSequence ds = new DistinctSubSequence();
-		System.out.println(ds.numDistinct("a", "a"));
+		System.out.println(ds.numDistinct("b", "a"));
 		
 		
 	}

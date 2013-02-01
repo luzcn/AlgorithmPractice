@@ -18,63 +18,51 @@ public class Triangle
 {
 	public int minimumTotal(ArrayList<ArrayList<Integer>> triangle)
 	{
-		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		int levels = triangle.size();
-		result.add(new ArrayList<Integer>(triangle.get(0)));
+		if (triangle == null)
+			return 0;
+		if (triangle.size() == 0)
+			return 0;
+		 return minimumTotalRec(triangle, 0, 0);
+	}
 
-		for (int i = 1; i < levels; i++)
-		{
-			ArrayList<Integer> list = new ArrayList<Integer>();
-			list.add(result.get(i - 1).get(0) + triangle.get(i).get(0));
+	private int minimumTotalRec(ArrayList<ArrayList<Integer>> triangle,
+			int level, int index)
+	{
+		if (level == triangle.size())
+			return 0;
 
-			for (int j = 1; j < triangle.get(i).size() - 1; j++)
-			{
-				int n1 = result.get(i - 1).get(j) + triangle.get(i).get(j);
-				int n2 = result.get(i - 1).get(j - 1) + triangle.get(i).get(j);
-
-				list.add(Math.min(n1, n2));
-			}
-			list.add(result.get(i - 1).get(result.get(i - 1).size() - 1)
-					+ triangle.get(i).get(triangle.get(i).size() - 1));
-			result.add(list);
-		}
-
-		ArrayList<Integer> list = result.get(result.size() - 1);
-		int min = Integer.MAX_VALUE;
-		for (int n : list)
-		{
-			if (n < min)
-				min = n;
-		}
-		return min;
+		return triangle.get(level).get(index)
+				+ Math.min(minimumTotalRec(triangle, level + 1, index),
+						minimumTotalRec(triangle, level + 1, index + 1));
 	}
 
 	public int minimumTotalDP(ArrayList<ArrayList<Integer>> triangle)
 	{
 		int rows = triangle.size();
-		if (rows == 0) return 0;
+		if (rows == 0)
+			return 0;
 		int[] minSums = new int[rows];
 		int[] temp = new int[rows];
-		
-		for (int r = 0;r<rows;r++)
+
+		for (int r = 0; r < rows; r++)
 		{
 			ArrayList<Integer> rowList = triangle.get(r);
 			if (rowList.size() != r + 1)
 				return 0;
-			temp[0] = rowList.get(0) + (r>0?minSums[0]:0);
-			
-			for (int i = 1;i<r;i++)	//r + 1 is the size of current list
+			temp[0] = rowList.get(0) + (r > 0 ? minSums[0] : 0);
+
+			for (int i = 1; i < r; i++) // r + 1 is the size of current list
 			{
-				temp[i] =  rowList.get(i) + Math.min(minSums[i-1], minSums[i]);
+				temp[i] = rowList.get(i) + Math.min(minSums[i - 1], minSums[i]);
 			}
-			if (r>0)
-				temp[r] = rowList.get(r) + minSums[r-1];
-			
+			if (r > 0)
+				temp[r] = rowList.get(r) + minSums[r - 1];
+
 			minSums = temp;
 			temp = new int[rows];
 		}
 		int min = minSums[0];
-		for (int i = 1;i<minSums.length;i++)
+		for (int i = 1; i < minSums.length; i++)
 		{
 			if (minSums[i] < min)
 				min = minSums[i];

@@ -25,39 +25,38 @@ public class SetColors
 {
 	public void sortColors(int[] A)
 	{
-		int n = A.length;
-		if (n == 0)
+		if (A.length == 0)
 			return;
 
-		int p0 = 0;
-		int p = 0;
-		int p2 = n - 1;
+		int l = 0;
+		int r = A.length - 1;
+		
+		int p = l;
 
-		while (p0 < n && A[p0] == 0)
-			p0++;
-		while (p2 >= 0 && A[p2] == 2)
-			p2--;
-
-		p = p0;
-
-		while (p <= p2)
+		while (p <= r)
 		{
 			if (A[p] == 0)
 			{
-				int temp = A[p0];
-				A[p0] = 0;
-				A[p] = temp;
-				p0++;
+				swap(A, l, p);
+				l++;
 				p++;
-			} else if (A[p] == 2)
+			}
+			else if (A[p] == 2)
 			{
-				int temp = A[p2];
-				A[p2] = 2;
-				A[p] = temp;
-				p2--;
-			} else
+				swap(A, p, r);
+				r--;
+			}
+			else
 				p++;
 		}
+
+	}
+
+	private void swap(int[] nums, int i, int j)
+	{
+		int temp = nums[i];
+		nums[i] = nums[j];
+		nums[j] = temp;
 	}
 
 	public static void main(String[] args)

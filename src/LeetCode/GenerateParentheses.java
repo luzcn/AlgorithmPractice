@@ -18,8 +18,28 @@ public class GenerateParentheses
 	public static ArrayList<String> generateParenthesis(int n)
 	{
 		ArrayList<String> solution = new ArrayList<String>();
-		printPar(n, n, new char[n * 2], 0, solution);
+		if (n == 0)
+			return solution;
+
+		generateRec(solution, new String(), n, n);
 		return solution;
+	}
+
+	private static void generateRec(ArrayList<String> solution, String current,
+			int l, int r)
+	{
+		if (l == 0 && r == 0)
+		{
+			solution.add(current);
+			return;
+		}
+		if (r < l)
+			return;
+
+		if (l > 0)
+			generateRec(solution, current + "(", l - 1, r);
+		if (r > 0)
+			generateRec(solution, current + ")", l, r - 1);
 	}
 
 	public static void printPar(int l, int r, char[] str, int count,
@@ -31,7 +51,8 @@ public class GenerateParentheses
 		{
 			solution.add(new String(str));
 			// System.out.println(str);
-		} else
+		}
+		else
 		{
 			if (l > 0)
 			{

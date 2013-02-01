@@ -17,40 +17,42 @@ public class LongestSubstringWithoutRepeatingCharacters
 
 	public static int lengthOfLongestSubstring(String s)
 	{
-		if (s.length() == 0) return 0;
-        if (s.length() == 1) return 1;
-        
-        int start = 0;
-        int count = 1;
-        int index = 1;
-        int maxcount = 1;
-        HashMap<Character, Integer> map = new HashMap<Character,Integer>();
-        map.put(s.charAt(start), 1);
-        
-        while(index<s.length())
-        {
-            if (map.get(s.charAt(index)) == null)   //no duplicate
-            {
-                map.put(s.charAt(index), 1);
-                count++;
-                index++;
-            }
-            else
-            {
-                if (count>maxcount)
-                    maxcount = count;
-                count = 1;
-                map.clear();
-                start++;
-                index=start+1;
-                if (start<s.length())
-                    map.put(s.charAt(start),1);
-            }
-        }
-        if (count>maxcount)
-            maxcount = count;
-            
-        return maxcount;
+		if (s.length() == 0)
+			return 0;
+		if (s.length() == 1)
+			return 1;
+
+		int start = 0;
+		int count = 1;
+		int index = 1;
+		int maxcount = 1;
+		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+		map.put(s.charAt(start), 1);
+
+		while (index < s.length())
+		{
+			if (map.get(s.charAt(index)) == null) // no duplicate
+			{
+				map.put(s.charAt(index), 1);
+				count++;
+				index++;
+			}
+			else
+			{
+				if (count > maxcount)
+					maxcount = count;
+				count = 1;
+				map.clear();
+				start++;
+				index = start + 1;
+				if (start < s.length())
+					map.put(s.charAt(start), 1);
+			}
+		}
+		if (count > maxcount)
+			maxcount = count;
+
+		return maxcount;
 	}
 
 	public static void main(String[] args)

@@ -41,6 +41,31 @@ public class PermutationAndCombination
 		return permutations;
 	}
 
+	private void permutationRec(char[] arr, int pos)
+	{
+		if (pos == arr.length)
+		{
+			System.out.println(new String(arr));
+			return;
+		}
+
+		for (int i = pos; i < arr.length; i++)
+		{
+			if (pos != i)
+				swap(arr, i, pos);
+			permutationRec(arr, pos + 1);
+			if (pos != i)
+				swap(arr, i, pos);
+		}
+	}
+
+	private void swap(char[] nums, int i, int j)
+	{
+		char temp = nums[i];
+		nums[i] = nums[j];
+		nums[j] = temp;
+	}
+
 	private static String insertCharToString(String str, char c, int index)
 	{
 		String firstSubStr = str.substring(0, index);

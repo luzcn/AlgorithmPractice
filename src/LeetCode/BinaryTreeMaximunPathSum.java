@@ -18,54 +18,40 @@ import java.util.Collections;
  */
 public class BinaryTreeMaximunPathSum
 {
-	int maxSum = -999;
-	int singleLine = 0;
-	
+	private int maxValue;
 	public int maxPathSum(TreeNode root)
 	{
 		if (root == null)
 			return 0;
+		maxValue = root.val;
 
-//		int leftMax = maxPathSumRec(root.left, 0);
-//		int rightMax = maxPathSumRec(root.right, 0);
-//
-//		ArrayList<Integer> list = new ArrayList<Integer>();
-//		list.add(leftMax);
-//		list.add(rightMax);
-//		list.add(leftMax + root.val);
-//		list.add(rightMax + root.val);
-//		list.add(leftMax + root.val + rightMax);
-//		list.add(root.val);
-//		
-//		System.out.println(list);
-		return maxPathSumRec(root, 0);//Collections.max(list);
-		
-	}
-
-	private int maxPathSumRec(TreeNode node, int sum)
-	{
-		if (node == null)
-		{
-			return maxSum;
-		}
-
-		sum += node.val;
-		if (sum > maxSum)
-			maxSum = sum;
-		
-		int leftMax = maxPathSumRec(node.left, 0);
-		int rightMax = maxPathSumRec(node.right, 0);
+		int leftSum = maxSubPathSum(root.left);
+		int rightSum = maxSubPathSum(root.right);
 
 		ArrayList<Integer> list = new ArrayList<Integer>();
-		list.add(leftMax);
-		list.add(rightMax);
-		list.add(leftMax + node.val);
-		list.add(rightMax + node.val);
-		list.add(leftMax + node.val + rightMax);
-		list.add(node.val);
-	
+		list.add(maxValue);
+		list.add(root.val + leftSum);
+		list.add(root.val + rightSum);
+		list.add(root.val + leftSum + rightSum);
 
 		return Collections.max(list);
+	}
+
+	private int maxSubPathSum(TreeNode node)
+	{
+		if (node == null)
+			return 0;
+
+		int leftSum = maxSubPathSum(node.left);
+		int rightSum = maxSubPathSum(node.right);
+
+		int maxSinglePathSum = Math.max(node.val,
+				Math.max(node.val + leftSum, node.val + rightSum));
+
+		maxValue = Math.max(Math.max(maxValue, maxSinglePathSum), node.val + leftSum
+				+ rightSum);
+
+		return maxSinglePathSum;
 	}
 
 	public static void main(String[] args)
@@ -73,15 +59,9 @@ public class BinaryTreeMaximunPathSum
 		TreeNode n1 = new TreeNode(1);
 		TreeNode n2 = new TreeNode(2);
 		TreeNode n3 = new TreeNode(3);
-		TreeNode n4 = new TreeNode(4);
-		TreeNode n5 = new TreeNode(6);
-		TreeNode n6 = new TreeNode(1);
-		
-		
+
 		n1.left = n2;
 		n1.right = n3;
-		n3.left = n5;
-		n3.right = n4;
 
 		BinaryTreeMaximunPathSum btm = new BinaryTreeMaximunPathSum();
 

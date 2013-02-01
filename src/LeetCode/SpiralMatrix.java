@@ -37,12 +37,12 @@ public class SpiralMatrix
 
 		while (row1 <= row2 && col1 <= col2)
 		{
-			// print the top row in order
+			// print the top row in left to right order
 			for (int j = col1; j <= col2; j++)
 				solution.add(M[row1][j]);
 			row1++;
 
-			// print the last column in order
+			// print the last column in top to bottom order
 			for (int i = row1; i <= row2; i++)
 				solution.add(M[i][col2]);
 			col2--;
