@@ -17,21 +17,25 @@ import java.util.HashSet;
 
 public class Permutations2
 {
+	private boolean[] canUse;
+
 	public ArrayList<ArrayList<Integer>> permute(int[] num)
 	{
-		HashSet<ArrayList<Integer>> solution = new HashSet<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> solution = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> numList = new ArrayList<Integer>();
+
+		canUse = new boolean[num.length];
 
 		for (int i = 0; i < num.length; i++)
 			numList.add(num[i]);
 
 		permRec(numList, solution, new ArrayList<Integer>());
 
-		return new ArrayList<ArrayList<Integer>>(solution);
+		return solution;
 	}
 
 	private void permRec(ArrayList<Integer> numList,
-			HashSet<ArrayList<Integer>> solution, ArrayList<Integer> current)
+			ArrayList<ArrayList<Integer>> solution, ArrayList<Integer> current)
 	{
 		if (numList.size() == 0)
 			solution.add(new ArrayList<Integer>(current));
@@ -39,11 +43,29 @@ public class Permutations2
 		{
 			for (int i = 0; i < numList.size(); i++)
 			{
-				current.add(numList.get(i));
-				numList.remove(i);
-				permRec(numList, solution, current);
-				numList.add(i, current.get(current.size() - 1));
-				current.remove(current.size() - 1);
+				if (i == 0)
+				{
+					canUse[i] = false;
+					current.add(numList.get(i));
+					numList.remove(i);
+					permRec(numList, solution, current);
+					numList.add(i, current.get(current.size() - 1));
+					current.remove(current.size() - 1);
+					canUse[i] = true;
+				}
+				else
+				{
+					if (numList.get(i) == numList.get(i - 1) && canUse[i - 1])
+						continue;
+
+					canUse[i] = false;
+					current.add(numList.get(i));
+					numList.remove(i);
+					permRec(numList, solution, current);
+					numList.add(i, current.get(current.size() - 1));
+					current.remove(current.size() - 1);
+					canUse[i] = true;
+				}
 			}
 		}
 	}

@@ -3,7 +3,7 @@ package LeetCode;
 import java.util.ArrayList;
 
 /**
- * The set [1,2,3,…,n] contains a total of n! unique permutations.
+ * The set [1,2,3,...,n] contains a total of n! unique permutations.
  * 
  * By listing and labeling all of the permutations in order, We get the
  * following sequence (ie, for n = 3):
@@ -23,21 +23,22 @@ public class PermutationSequence
 
 	public String getPermutation(int n, int k)
 	{
-		if (n == 0) return null;
-		
+		if (n == 0)
+			return null;
+
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		for (int i = 1; i <= n; i++)
 			list.add(i);
 		ArrayList<ArrayList<Integer>> solution = new ArrayList<ArrayList<Integer>>();
 		getPermsRec(list, solution, new ArrayList<Integer>(), 0);
-		
-		ArrayList<Integer> stringInK = solution.get(k-1);
+
+		ArrayList<Integer> stringInK = solution.get(k - 1);
 		String s = "";
-		for (int i = 0;i<stringInK.size();i++)
-			s+=stringInK.get(i);
-		
+		for (int i = 0; i < stringInK.size(); i++)
+			s += stringInK.get(i);
+
 		System.out.println(solution);
-		
+
 		return s;
 	}
 
@@ -52,16 +53,16 @@ public class PermutationSequence
 		}
 		else
 		{
-			for (int i = index; i<list.size(); i++)
+			for (int i = index; i < list.size(); i++)
 			{
 				currentSol.add(list.get(i));
 				list.remove(i);
 				getPermsRec(list, solution, currentSol, index);
-				list.add(i, currentSol.get(currentSol.size()-1));
-				currentSol.remove(currentSol.size()-1);
+				list.add(i, currentSol.get(currentSol.size() - 1));
+				currentSol.remove(currentSol.size() - 1);
 			}
 		}
-		
+
 		return solution;
 	}
 
@@ -69,7 +70,7 @@ public class PermutationSequence
 	{
 		PermutationSequence ps = new PermutationSequence();
 		String s = ps.getPermutation(3, 2);
-		
+
 		System.out.println(s);
 	}
 

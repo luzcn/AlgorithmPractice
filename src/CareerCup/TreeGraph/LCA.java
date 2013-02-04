@@ -1,5 +1,6 @@
 package CareerCup.TreeGraph;
 
+import java.util.ArrayList;
 import AlgorithmDataStructure.BinaryNode;
 import AlgorithmDataStructure.BinarySearchTree;
 
@@ -117,7 +118,7 @@ public class LCA
 			return null;
 		if (currentNode.key == n1 || currentNode.key == n2)
 			return currentNode;
-		
+
 		BinaryNode L = LCA_BottomUp(currentNode.left, n1, n2);
 		BinaryNode R = LCA_BottomUp(currentNode.right, n1, n2);
 
@@ -127,6 +128,42 @@ public class LCA
 			return L;
 		else
 			return R;
+	}
+
+	/**
+	 * Find the least common ancestor of two node in n-ary tree
+	 * 
+	 * @param node
+	 * @param n1
+	 * @param n2
+	 * @return
+	 */
+	public NTreeNode LCANTree(NTreeNode node, int n1, int n2)
+	{
+		if (node == null)
+			return null;
+		if (node.val == n1 || node.val == n2)
+			return node;
+
+		ArrayList<NTreeNode> list = new ArrayList<NTreeNode>();
+		for (int i = 0; i < node.getChildrenSize(); i++)
+		{
+			list.add(LCANTree(node.children.get(i), n1, n2));
+		}
+
+		ArrayList<NTreeNode> returnList = new ArrayList<NTreeNode>();
+		for (int i = 0; i < list.size(); i++)
+		{
+			if (list.get(i) != null)
+				returnList.add(list.get(i));
+		}
+
+		if (returnList.size() == 2)
+			return node;
+		else if (returnList.size() == 1)
+			return returnList.get(0);
+		else
+			return null;
 	}
 
 	public static void main(String[] args)
@@ -148,4 +185,32 @@ public class LCA
 		// bst.preOrder(bst.root);
 	}
 
+}
+
+class NTreeNode
+{
+	int val;
+	ArrayList<NTreeNode> children;
+
+	public NTreeNode(int n)
+	{
+		val = n;
+		children = new ArrayList<NTreeNode>();
+	}
+
+	public void addChild(int n)
+	{
+		NTreeNode child = new NTreeNode(n);
+		this.children.add(child);
+	}
+
+	public boolean hasChild()
+	{
+		return this.children.size() > 0;
+	}
+
+	public int getChildrenSize()
+	{
+		return this.children.size();
+	}
 }
