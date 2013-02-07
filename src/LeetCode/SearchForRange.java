@@ -45,8 +45,9 @@ public class SearchForRange
 					index1 = mid;
 
 				isFind = true;
-				l = mid + 1;			//check right side
-			} else if (a[mid] < target)
+				l = mid + 1; // check right side
+			}
+			else if (a[mid] < target)
 				l = mid + 1;
 			else
 				r = mid - 1;
@@ -66,9 +67,10 @@ public class SearchForRange
 				if (mid < index1)
 					index1 = mid;
 
-				isFind = true;	
-				r = mid - 1;			//check left side
-			} else if (a[mid] < target)
+				isFind = true;
+				r = mid - 1; // check left side
+			}
+			else if (a[mid] < target)
 				l = mid + 1;
 			else
 				r = mid - 1;

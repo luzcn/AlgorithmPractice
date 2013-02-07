@@ -25,6 +25,7 @@ public class BasicTreeTraversal
 		while (!s.isEmpty())
 		{
 			TreeNode current = s.pop();
+			System.out.println(current);
 			if (current.right != null)
 				s.push(current.right);
 			if (current.left != null)
@@ -97,6 +98,7 @@ public class BasicTreeTraversal
 
 		TreeNode current = root;
 		TreeNode pre = null;
+		
 		while (current != null)
 		{
 			if (current.left == null)

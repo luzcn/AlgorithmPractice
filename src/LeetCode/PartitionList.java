@@ -15,6 +15,48 @@ package LeetCode;
  */
 public class PartitionList
 {
+	public ListNode partitionInPlace(ListNode head, int x)
+	{
+		if (head == null || head.next == null)
+			return head;
+
+		ListNode tail = head;
+		int size = 0;
+		while (tail.next != null)
+		{
+			size++;
+			tail = tail.next;
+		}
+
+		int count = 0;
+		while (head != null && head.val >= x && count <= size)
+		{
+			ListNode temp = head.next;
+			head.next = null;
+			tail.next = head;
+			tail = tail.next;
+			head = temp;
+			count++;
+		}
+
+		ListNode p = head;
+		while (count < size)
+		{
+			if (p.next.val < x)
+				p = p.next;
+			else
+			{
+				ListNode temp = p.next;
+				p.next = p.next.next;
+				temp.next = null;
+				tail.next = temp;
+				tail = tail.next;
+			}
+			count++;
+		}
+		return head;
+	}
+
 	public ListNode partition(ListNode head, int x)
 	{
 		if (head == null)
@@ -32,7 +74,8 @@ public class PartitionList
 			{
 				p.next = new ListNode(h.val);
 				p = p.next;
-			} else
+			}
+			else
 			{
 				q.next = new ListNode(h.val);
 				q = q.next;
@@ -48,11 +91,11 @@ public class PartitionList
 	public static void main(String[] args)
 	{
 		ListNode n1 = new ListNode(1);
-		ListNode n2 = new ListNode(4);
-		ListNode n3 = new ListNode(3);
+		ListNode n2 = new ListNode(2);
+		ListNode n3 = new ListNode(1);
 		ListNode n4 = new ListNode(2);
-		ListNode n5 = new ListNode(5);
-		ListNode n6 = new ListNode(2);
+		ListNode n5 = new ListNode(1);
+		ListNode n6 = new ListNode(1);
 
 		n1.next = n2;
 		n2.next = n3;
@@ -62,7 +105,7 @@ public class PartitionList
 		n6.next = null;
 
 		PartitionList pl = new PartitionList();
-		ListNode r = pl.partition(n1, 3);
+		ListNode r = pl.partitionInPlace(n1, 3);
 		while (r != null)
 		{
 			System.out.print(r.val + "  ");

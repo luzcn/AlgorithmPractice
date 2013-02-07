@@ -129,8 +129,8 @@ public class Subsets
 	public static void main(String[] args)
 	{
 		Subsets sub = new Subsets();
-		ArrayList<ArrayList<Integer>> subset = sub
-				.subsets2(new int[] { 1, 2, 2 });
+		ArrayList<ArrayList<Integer>> subset = sub.subsets2(new int[] { 1, 2,
+				2, 2 });
 		System.out.println(subset);
 
 	}

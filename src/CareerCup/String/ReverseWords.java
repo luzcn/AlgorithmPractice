@@ -10,7 +10,6 @@ package CareerCup.String;
  */
 public class ReverseWords
 {
-
 	private String reverseWord(String s)
 	{
 		if (s == null || s.length() == 0)

@@ -102,8 +102,13 @@ public class MaximalRectangle
 					int min = dp[i][j];
 					while (k >= 0 && M[k][j] == 1)
 					{
-						min = Math.min(min, dp[k][j]);
-						max = Math.max(max, min * (i - k + 1));
+						// min = Math.min(min, dp[k][j]);
+						// max = Math.max(max, min * (i - k + 1));
+						if (dp[k][j] < min)
+							min = dp[k][j];
+						int area = min * (i - k + 1);
+						if (area > max)
+							max = area;
 						k--;
 					}
 				}
@@ -111,6 +116,7 @@ public class MaximalRectangle
 		}
 		return max;
 	}
+
 	public int maximalRectangle(char[][] matrix)
 	{
 		int rows = matrix.length;
