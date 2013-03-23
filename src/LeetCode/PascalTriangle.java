@@ -51,7 +51,6 @@ public class PascalTriangle
 			current.add(1);
 			solution.add(new ArrayList<Integer>(current));
 		}
-
 		return solution;
 	}
 

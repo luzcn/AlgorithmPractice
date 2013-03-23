@@ -28,7 +28,8 @@ public class SerializeAndDeserializeBinaryTree
 		{
 			bw = new BufferedWriter(new FileWriter(file));
 			br = new BufferedReader(new FileReader(file));
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -45,6 +46,7 @@ public class SerializeAndDeserializeBinaryTree
 		Serialization(root.left);
 		Serialization(root.right);
 	}
+
 	public TreeNode<Integer> Deserialization(String[] preorder)
 	{
 		if (index == preorder.length)

@@ -4,8 +4,9 @@ import java.util.Stack;
 
 /**
  * sort a stack from top to bottom in ascending order
+ * 
  * @author Zheng Lu
- *
+ * 
  */
 public class SortStack
 {
@@ -13,51 +14,59 @@ public class SortStack
 	{
 		Stack<Integer> compareStack = new Stack<Integer>();
 		Stack<Integer> tempStack = new Stack<Integer>();
-		if (s.isEmpty()) System.out.println("Empty Stack");
+		
+		if (s.isEmpty())
+			System.out.println("Empty Stack");
 		else
 		{
-			while(!s.isEmpty())
+			while (!s.isEmpty())
 			{
-				if (compareStack.isEmpty())						//no element to compare 
+				// no element to compare
+				if (compareStack.isEmpty())
 				{
-					compareStack.push(s.pop());					//put s.pop() directly to compareStack
+					// put s.pop() directly to compareStack
+					compareStack.push(s.pop());
 				}
 				else
 				{
-					while (!compareStack.isEmpty())				//move all elements which are > s.peek() out.
+					// move all elements which are > s.peek() out.
+					while (!compareStack.isEmpty())
 					{
-						if (s.peek()<compareStack.peek())
-							tempStack.push(compareStack.pop());	//and store these elements in a temporary stack
-						else break;	
+						// and store these elements in a temporary stack
+						if (s.peek() < compareStack.peek())
+							tempStack.push(compareStack.pop());
+						else
+							break;
 					}
-					compareStack.push(s.pop());					//now, we can put this element into the compareStack
-					while(!tempStack.isEmpty())
-						compareStack.push(tempStack.pop());		//put all the greater elements back to compareStack.
+					// now, we can put this element into the compareStack
+					compareStack.push(s.pop());
+					// put all the greater elements back to compareStack.
+					while (!tempStack.isEmpty())
+						compareStack.push(tempStack.pop());
 				}
 			}
 		}
-		while(!compareStack.isEmpty())
+		while (!compareStack.isEmpty())
 		{
 			s.push(compareStack.pop());
 		}
 	}
-	
-	
+
 	public static void main(String[] args)
 	{
 		Stack<Integer> s = new Stack<Integer>();
-		
+
 		s.push(123);
 		s.push(2333);
 		s.push(1);
 		s.push(23);
 		s.push(23);
-		
+
 		SortStack ss = new SortStack();
 		ss.sort(s);
-		
-		while(!s.isEmpty())
+
+		while (!s.isEmpty())
 			System.out.println(s.pop());
-		
+
 	}
 }
